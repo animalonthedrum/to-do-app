@@ -52,3 +52,11 @@
     padding: 10px;
     background-color: #4286f4;
   }
+
+  .list {
+    display: inline-block;
+  }
+
+  .star {
+    text-align: center;
+  }
