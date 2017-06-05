@@ -74,21 +74,25 @@ var displayTask = function(response) {
 
 function deleteTasks(id) {
   console.log('delete button working');
-  var objectToSend = {
-    id: id
+  if (confirm('Are you sure you want to delete this task?')) {
 
-  };
+    var objectToSend = {
+      id: id
 
-  console.log(objectToSend);
-  $.ajax({
-    type: 'DELETE',
-    url: '/delete',
-    data: objectToSend,
-    success: function(response) {
-      console.log('back from server with:', response);
-    }
-  });
+    };
 
+    console.log(objectToSend);
+    $.ajax({
+      type: 'DELETE',
+      url: '/delete',
+      data: objectToSend,
+      success: function(response) {
+        console.log('back from server with:', response);
+      }
+    });
+  } else {
+    alert('Task not deleted');
+  }
 } //end delete_task
 
 function updateTask(id) {
