@@ -15,9 +15,10 @@ $(document).ready(function() {
   }); // end on click
   $('.list').on('click', '.complete', function() {
     var id = $(this).data('id');
+
     $(this).css('background-color', '#4286f4');
     updateTask(id);
-    getTask();
+
 
 
   });
