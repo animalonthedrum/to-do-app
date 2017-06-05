@@ -10,7 +10,7 @@ $(document).ready(function() {
     }; //end userInput
     addTask(userInput);
     $('.input').val('');
-
+    getTask();
 
   }); // end on click
   $('.list').on('click', '.complete', function() {
@@ -18,6 +18,7 @@ $(document).ready(function() {
 
     $(this).css('background-color', '#4286f4');
     updateTask(id);
+
 
 
 
@@ -94,8 +95,7 @@ var displayTask = function(response) {
 
 function deleteTasks(id) {
   console.log('delete button working');
-  if (confirm('Are you sure you want to delete this task?')) {
-
+  if (confirm('There/s always next time')) {
     var objectToSend = {
       id: id
 
@@ -110,9 +110,11 @@ function deleteTasks(id) {
         console.log('back from server with:', response);
       }
     });
-  } else {
-    alert('Task not deleted');
+  } //end if
+  else {
+    alert('Phew!');
   }
+
 } //end delete_task
 
 function updateTask(id) {
