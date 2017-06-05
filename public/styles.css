@@ -1,7 +1,50 @@
-table {
-  border-collapse: collapse;
-}
+  h1 {
+    color: #363f3f;
+    text-align: center;
+    background-color: #f7901e;
+    font-size: 60px;
+    font-family: 'Oswald', sans-serif;
+  }
 
-table, td, th {
-  border: 1px solid black;
-}
+  .img {
+    width: 200px;
+    float: right;
+  }
+
+  .input {
+    text-align: center;
+    font-size: 30px;
+    padding: 10px;
+  }
+
+  #outputDiv {
+    float: left;
+    padding-left: 150px;
+    font-family: 'Roboto Condensed', sans-serif;
+  }
+
+  #addTask {
+    font-size: 30px;
+    border-radius: 10px;
+    background-color: #f7901e;
+    padding: 15px;
+    border: none;
+  }
+
+  .complete {
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+  }
+
+  .chk {
+    font-size: 20px;
+  }
+
+  .delete {
+    font-size: 20px;
+    border-radius: 10px;
+    border: none;
+    padding: 10px;
+  }

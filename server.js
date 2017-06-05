@@ -74,7 +74,7 @@ app.post('/todo', function(req, res) {
     } // end error
     else {
       console.log('connected to db');
-      connection.query("INSERT INTO to_do ( task, complete ) values ( $1, $2 )", [req.body.task, req.body.complete]);
+      connection.query("INSERT INTO to_do ( task, complete) values ( $1, $2 )", [req.body.task, req.body.complete]);
       done();
       res.send(200);
     } // end no error

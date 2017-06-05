@@ -6,18 +6,20 @@ $(document).ready(function() {
     var userInput = {
       task: $('#tasks').val(),
       complete: false
+
     }; //end userInput
     addTask(userInput);
-    $('#outputDiv').on('click', '#delete', deleteTask);
+    $('.input').val('');
 
   }); // end on click
 
+
+
   // init page
   getTask();
+
+
 }); // end doc ready
-
-
-
 
 var addTask = function(objectToSend) {
   // test get call to server
@@ -27,9 +29,10 @@ var addTask = function(objectToSend) {
     data: objectToSend,
     success: function(response) {
       console.log('back from post call with:', response);
-      $('#tasks').empty();
+
     } // end success
   }); // end ajax
+
 }; // end getTask
 
 var getTask = function() {
@@ -51,10 +54,7 @@ var displayTask = function(imagesArray) {
   // loop through imagesArray
   // append each to the dom
   for (var i = 0; i < imagesArray.length; i++) {
-    outputDiv.append('<p>' + imagesArray[i].task + " " + imagesArray[i].complete + '</p>' + '<button id="complete">Complete</button>' + '<button id="delete">Delete</button>');
+    outputDiv.append('<p>' + imagesArray[i].task + '</p>' + '<input class="chk" type="checkbox">' + '<button class="complete">Completed</button>' + " " + '<button class="delete">Delete</button>');
 
   } // end for
 }; // end displayTask
-function deleteTask() {
-  console.log('clicked delete');
-}
