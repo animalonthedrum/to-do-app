@@ -80,3 +80,22 @@ app.post('/todo', function(req, res) {
     } // end no error
   }); // end pool connect
 }); // end /todo post
+app.delete('/deleteTask', function(req, res) {
+  console.log('deleteTask url hit');
+  pool.connect(function(err, connection, done) {
+    if (err) {
+      console.log(err);
+      done();
+      res.send(400);
+    } //end if
+    else {
+      console.log('connected to db on deleteTask');
+      var deleteID = req.body.id;
+      console.log('deleteId', deleteID);
+      var resultSet = connection.query("DELETE FROM to_do WHERE id = " + deleteID + ";");
+      console.log('delete task result set', resultSet);
+      done();
+      res.send(200);
+    } //end else
+  });
+}); // end delete

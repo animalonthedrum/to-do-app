@@ -12,7 +12,7 @@ $(document).ready(function() {
     $('.input').val('');
 
   }); // end on click
-
+  $('#outputDiv').on('click', '.delete', deleteTask);
 
 
   // init page
@@ -47,14 +47,42 @@ var getTask = function() {
   }); // end ajax
 }; // end getTask
 
-var displayTask = function(imagesArray) {
+var displayTask = function(response) {
   // output div
   var outputDiv = $('#outputDiv');
   outputDiv.empty();
-  // loop through imagesArray
+  // loop through response
   // append each to the dom
-  for (var i = 0; i < imagesArray.length; i++) {
-    outputDiv.append('<p>' + imagesArray[i].task + '</p>' + '<input class="chk" type="checkbox">' + '<button class="complete">Completed</button>' + " " + '<button class="delete">Delete</button>');
+  for (var i = 0; i < response.length; i++) {
+    outputDiv.append('<p>' + response[i].task + '</p>' + response[i].id + '<input class="chk" type="checkbox">' + '<button class="complete">Completed</button>' + " " + '<button class="delete">Delete</button>');
 
   } // end for
 }; // end displayTask
+
+// deleting a task from a database
+function deleteTask() {
+  console.log('deleteTask entered');
+  var intId = Number(this.id);
+  var taskToDelete = {
+    id: intId
+  };
+
+  if (confirm("There's always next time!")) {
+    // your deletion code
+
+    console.log('taskToDelete', taskToDelete);
+    $.ajax({
+      type: 'DELETE',
+      url: '/deleteTask',
+      data: taskToDelete,
+      success: function(response) {
+        console.log('back from the server with tasktoDelete response', response);
+      } // end success
+    }); //end ajax call
+    $('#tasks').empty();
+    displayTask();
+
+  } else {
+    return false;
+  }
+} // end deleteTask
