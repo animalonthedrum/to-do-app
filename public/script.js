@@ -15,8 +15,12 @@ $(document).ready(function() {
   }); // end on click
   $('.list').on('click', '.complete', function() {
     var id = $(this).data('id');
+    $(this).css('color', 'green');
     updateTask(id);
+
+
   });
+
 
   $('#outputDiv').on('click', '.delete', function() {
     var id = $(this).data('id');
@@ -57,6 +61,7 @@ var getTask = function() {
       displayTask(response);
     } // end success
   }); // end ajax
+
 }; // end getTask
 
 var displayTask = function(response) {
@@ -67,6 +72,8 @@ var displayTask = function(response) {
   // append each to the dom
   for (var i = 0; i < response.length; i++) {
     list.append('<li>' + '<p>' + response[i].task + '</p>' + '<input class="chk" type="checkbox">' + '<button data-id ="' + response[i].id + '"class="complete">Completed</button>' + " " + '<button  data-id ="' + response[i].id + '" class="delete">Delete</button>' + '</li>');
+
+
 
   } // end for
 }; // end displayTask
