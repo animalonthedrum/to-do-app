@@ -17,6 +17,7 @@ $(document).ready(function() {
     var id = $(this).data('id');
     $(this).css('background-color', '#4286f4');
     updateTask(id);
+    getTask();
 
 
   });
@@ -76,6 +77,7 @@ var displayTask = function(response) {
 
 
   } // end for
+
 }; // end displayTask
 
 
