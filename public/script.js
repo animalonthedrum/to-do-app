@@ -15,7 +15,7 @@ $(document).ready(function() {
   }); // end on click
   $('.list').on('click', '.complete', function() {
     var id = $(this).data('id');
-    $(this).css('color', 'green');
+    $(this).css('background-color', 'green');
     updateTask(id);
 
 
