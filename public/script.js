@@ -73,7 +73,17 @@ var displayTask = function(response) {
   // loop through response
   // append each to the dom
   for (var i = 0; i < response.length; i++) {
-    list.append('<li>' + '<p>' + response[i].task + '</p>' + '<button data-id ="' + response[i].id + '"class="complete">Completed</button>' + " " + '<button  data-id ="' + response[i].id + '" class="delete">Delete</button>' + '</li>');
+    console.log(response[i].complete);
+
+    var appendString = '<li>' + '<p>' + response[i].task + '</p>' + '<button data-id ="' + response[i].id;
+
+    if (response[i].complete) {
+      appendString += '"class="completed">Completed</button>';
+    } else {
+      appendString += '"class="complete">Completed</button>';
+    }
+    appendString += " " + '<button  data-id ="' + response[i].id + '" class="delete">Delete</button>' + '</li>';
+    list.append(appendString);
 
 
 
