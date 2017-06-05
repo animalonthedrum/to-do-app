@@ -11,8 +11,20 @@ $(document).ready(function() {
     addTask(userInput);
     $('.input').val('');
 
+
   }); // end on click
-  $('#outputDiv').on('click', '.delete', deleteTask);
+  $('.list').on('click', '.complete', function() {
+    var id = $(this).data('id');
+    updateTask(id);
+  });
+
+  $('#outputDiv').on('click', '.delete', function() {
+    var id = $(this).data('id');
+    deleteTasks(id);
+    getTask();
+  });
+
+
 
 
   // init page
@@ -49,40 +61,52 @@ var getTask = function() {
 
 var displayTask = function(response) {
   // output div
-  var outputDiv = $('#outputDiv');
-  outputDiv.empty();
+  var list = $('.list');
+  list.empty();
   // loop through response
   // append each to the dom
   for (var i = 0; i < response.length; i++) {
-    outputDiv.append('<p>' + response[i].task + '</p>' + response[i].id + '<input class="chk" type="checkbox">' + '<button class="complete">Completed</button>' + " " + '<button class="delete">Delete</button>');
+    list.append('<li>' + '<p>' + response[i].task + '</p>' + '<input class="chk" type="checkbox">' + '<button data-id ="' + response[i].id + '"class="complete">Completed</button>' + " " + '<button  data-id ="' + response[i].id + '" class="delete">Delete</button>' + '</li>');
 
   } // end for
 }; // end displayTask
 
-// deleting a task from a database
-function deleteTask() {
-  console.log('deleteTask entered');
-  var intId = Number(this.id);
-  var taskToDelete = {
-    id: intId
+
+function deleteTasks(id) {
+  console.log('delete button working');
+  var objectToSend = {
+    id: id
+
   };
 
-  if (confirm("There's always next time!")) {
-    // your deletion code
+  console.log(objectToSend);
+  $.ajax({
+    type: 'DELETE',
+    url: '/delete',
+    data: objectToSend,
+    success: function(response) {
+      console.log('back from server with:', response);
+    }
+  });
 
-    console.log('taskToDelete', taskToDelete);
-    $.ajax({
-      type: 'DELETE',
-      url: '/deleteTask',
-      data: taskToDelete,
-      success: function(response) {
-        console.log('back from the server with tasktoDelete response', response);
-      } // end success
-    }); //end ajax call
-    $('#tasks').empty();
-    displayTask();
+} //end delete_task
 
-  } else {
-    return false;
-  }
-} // end deleteTask
+function updateTask(id) {
+  console.log('update clicked');
+
+  var objectToSend = {
+    id: id
+
+  };
+
+  $.ajax({
+    type: 'POST',
+    url: '/update',
+    data: objectToSend,
+    success: function(response) {
+      console.log('back from post call with:', response);
+
+    } // end success
+  }); // end ajax
+
+}

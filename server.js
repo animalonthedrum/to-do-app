@@ -80,22 +80,40 @@ app.post('/todo', function(req, res) {
     } // end no error
   }); // end pool connect
 }); // end /todo post
-app.delete('/deleteTask', function(req, res) {
-  console.log('deleteTask url hit');
+
+
+app.delete('/delete', function(req, res) {
+  res.send('DELETE request to homepage');
   pool.connect(function(err, connection, done) {
     if (err) {
-      console.log(err);
+      console.log('error');
       done();
       res.send(400);
-    } //end if
-    else {
-      console.log('connected to db on deleteTask');
-      var deleteID = req.body.id;
-      console.log('deleteId', deleteID);
-      var resultSet = connection.query("DELETE FROM to_do WHERE id = " + deleteID + ";");
-      console.log('delete task result set', resultSet);
+    } else {
+      console.log('connected to DB');
+      console.log(req.body.id);
+      connection.query('DELETE FROM to_do WHERE id = $1', [req.body.id]);
       done();
       res.send(200);
     } //end else
-  });
-}); // end delete
+  }); //end pool connect
+});
+
+
+app.post('/update', function(req, res) {
+  console.log('/update url hit');
+  pool.connect(function(err, connection, done) {
+    if (err) {
+      console.log('error connection to the server');
+      done();
+      res.send(400);
+    } //end err if
+    else {
+      console.log('connected to db');
+      connection.query('UPDATE to_do SET complete = $1 WHERE id = $2', [true, req.body.id]);
+      done();
+      res.send(200);
+    } // end elseif
+  }); //end pool.connec
+  res.send(200);
+});
